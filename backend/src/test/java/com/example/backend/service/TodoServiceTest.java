@@ -113,4 +113,29 @@ class TodoServiceTest {
         Todo expected = getNewTodoInstanceOfTodoToAdd();
         assertEquals(actual, expected);
     }
+
+    @Test
+    void delete_shouldReturnNull_whenRepoIsEmpty() {
+        String id = "idNotExist";
+        when(todoRepo.delete(id))
+                .thenReturn(null);
+
+        Todo actual = todoService.delete(id);
+
+        verify(todoRepo).delete(id);
+        assertNull(actual);
+    }
+
+    @Test
+    void delete_shouldReturnTodoWithGivenId_whenRepoContainsId() {
+        String id = todoToAdd.id();
+        when(todoRepo.delete(id))
+                .thenReturn(todoToAdd);
+
+        Todo actual = todoService.delete(id);
+
+        verify(todoRepo).delete(id);
+        Todo expected = getNewTodoInstanceOfTodoToAdd();
+        assertEquals(expected, actual);
+    }
 }

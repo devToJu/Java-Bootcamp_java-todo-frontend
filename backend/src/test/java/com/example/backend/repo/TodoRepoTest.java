@@ -15,7 +15,7 @@ class TodoRepoTest {
     TodoRepo todoRepo;
     Todo todoToAdd = new Todo("3", "C", State.OPEN);
 
-    Todo getNewTodoInstanceEqualsTodoToAdd() {
+    Todo getNewTodoInstanceOfTodoToAdd() {
         return new Todo("3", "C", State.OPEN);
     }
 
@@ -30,7 +30,7 @@ class TodoRepoTest {
         Todo actual = todoRepo.add(todoToAdd);
 
         // THEN
-        Todo expected = getNewTodoInstanceEqualsTodoToAdd();
+        Todo expected = getNewTodoInstanceOfTodoToAdd();
         assertEquals(expected, actual);
     }
 
@@ -54,7 +54,7 @@ class TodoRepoTest {
 
         // THEN
         List<Todo> expected = new ArrayList<>(List.of(
-                getNewTodoInstanceEqualsTodoToAdd()
+                getNewTodoInstanceOfTodoToAdd()
         ));
         assertEquals(expected, actual);
     }
@@ -77,16 +77,34 @@ class TodoRepoTest {
         Todo actual = todoRepo.get("3");
 
         // THEN
-        Todo expected = getNewTodoInstanceEqualsTodoToAdd();
+        Todo expected = getNewTodoInstanceOfTodoToAdd();
         assertEquals(expected, actual);
     }
 
     @Test
     void replace_shouldReturnTheNewTodo_whenRepoIsEmpty() {
-        Todo newTodo = getNewTodoInstanceEqualsTodoToAdd();
+        Todo newTodo = getNewTodoInstanceOfTodoToAdd();
 
         Todo actual = todoRepo.replace(newTodo.id(), newTodo);
 
-        assertEquals(getNewTodoInstanceEqualsTodoToAdd(), actual);
+        assertEquals(getNewTodoInstanceOfTodoToAdd(), actual);
+    }
+
+    @Test
+    void delete_shouldReturnNull_whenRepoIsEmpty() {
+        Todo actual = todoRepo.delete("doesntExist");
+
+        assertNull(actual);
+    }
+
+    @Test
+    void delete_shouldReturnDeletedItem_whenRepoContainsId() {
+        Todo todoToDelete = getNewTodoInstanceOfTodoToAdd();
+        todoRepo.add(todoToDelete);
+
+        Todo actual = todoRepo.delete(todoToDelete.id());
+
+        Todo expected = getNewTodoInstanceOfTodoToAdd();
+        assertEquals(expected, actual);
     }
 }
