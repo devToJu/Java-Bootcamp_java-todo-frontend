@@ -32,4 +32,8 @@ public class TodoService {
     public Todo replace(String id, Todo todo) {
         return todoRepo.replace(id, todo);
     }
+
+    public Todo delete(String id) {
+        return todoRepo.delete(id);
+    }
 }

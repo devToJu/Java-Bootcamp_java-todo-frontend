@@ -33,4 +33,8 @@ public class TodoRepo {
         todos.put(id, todo);
         return todo;
     }
+
+    public Todo delete(String id) {
+        return todos.remove(id);
+    }
 }

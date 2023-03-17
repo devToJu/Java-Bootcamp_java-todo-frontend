@@ -36,4 +36,10 @@ public class TodoController {
     public Todo replace(@PathVariable String id, @RequestBody Todo todo) {
         return todoService.replace(id, todo);
     }
+
+    @DeleteMapping("/{id}")
+    public Todo delete(@PathVariable String id) {
+        return todoService.delete(id);
+    }
+
 }
