@@ -15,7 +15,7 @@ class TodoRepoTest {
     TodoRepo todoRepo;
     Todo todoToAdd = new Todo("3", "C", State.OPEN);
 
-    Todo createNewTodoEqualsTodoToAdd() {
+    Todo getNewTodoInstanceEqualsTodoToAdd() {
         return new Todo("3", "C", State.OPEN);
     }
 
@@ -30,7 +30,7 @@ class TodoRepoTest {
         Todo actual = todoRepo.add(todoToAdd);
 
         // THEN
-        Todo expected = createNewTodoEqualsTodoToAdd();
+        Todo expected = getNewTodoInstanceEqualsTodoToAdd();
         assertEquals(expected, actual);
     }
 
@@ -54,7 +54,7 @@ class TodoRepoTest {
 
         // THEN
         List<Todo> expected = new ArrayList<>(List.of(
-                createNewTodoEqualsTodoToAdd()
+                getNewTodoInstanceEqualsTodoToAdd()
         ));
         assertEquals(expected, actual);
     }
@@ -67,6 +67,7 @@ class TodoRepoTest {
         // THEN
         assertNull(actual);
     }
+
     @Test
     void get_shouldReturnTodoWithId_whenRepoContainsGivenId() {
         // GIVEN
@@ -76,7 +77,16 @@ class TodoRepoTest {
         Todo actual = todoRepo.get("3");
 
         // THEN
-        Todo expected = createNewTodoEqualsTodoToAdd();
+        Todo expected = getNewTodoInstanceEqualsTodoToAdd();
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void replace_shouldReturnTheNewTodo_whenRepoIsEmpty() {
+        Todo newTodo = getNewTodoInstanceEqualsTodoToAdd();
+
+        Todo actual = todoRepo.replace(newTodo.id(), newTodo);
+
+        assertEquals(getNewTodoInstanceEqualsTodoToAdd(), actual);
     }
 }

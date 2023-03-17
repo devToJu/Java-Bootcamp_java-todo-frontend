@@ -21,7 +21,7 @@ class TodoServiceTest {
 
     Todo todoToAdd = new Todo("3", "C", State.OPEN);
 
-    Todo getTodoEqualsTodoToAdd() {
+    Todo getNewTodoInstanceOfTodoToAdd() {
         return new Todo("3", "C", State.OPEN);
     }
 
@@ -43,7 +43,7 @@ class TodoServiceTest {
         verify(idService).generateId();
         verify(todoRepo).add(todoToAdd);
 
-        Todo expected = getTodoEqualsTodoToAdd();
+        Todo expected = getNewTodoInstanceOfTodoToAdd();
         assertEquals(expected, actual);
     }
 
@@ -78,7 +78,7 @@ class TodoServiceTest {
     }
 
     @Test
-    void get_shouldReturnNull_whenIdIsNotInRepo() {
+    void get_shouldReturnNull_whenIdIsEmpty() {
         when(todoRepo.get("1"))
                 .thenReturn(null);
 
@@ -89,7 +89,7 @@ class TodoServiceTest {
     }
 
     @Test
-    void get_shouldReturnTodo_whenRepoContainsTodoWithGivenId() {
+    void get_shouldReturnTodoWithGivenId_whenRepoContainsTodoWithGivenId() {
         when(todoRepo.get(todoToAdd.id()))
                 .thenReturn(todoToAdd);
 
@@ -97,7 +97,20 @@ class TodoServiceTest {
 
         verify(todoRepo).get(todoToAdd.id());
 
-        Todo expected = getTodoEqualsTodoToAdd();
+        Todo expected = getNewTodoInstanceOfTodoToAdd();
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void replace_shouldReturnNewTodo() {
+        when(todoRepo.replace(todoToAdd.id(), todoToAdd ))
+                .thenReturn(todoToAdd);
+
+        Todo actual = todoService.replace(todoToAdd.id(), todoToAdd);
+
+        verify(todoRepo).replace(todoToAdd.id(), todoToAdd);
+
+        Todo expected = getNewTodoInstanceOfTodoToAdd();
+        assertEquals(actual, expected);
     }
 }
