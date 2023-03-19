@@ -16,7 +16,7 @@ public class TodoRepo {
         this.todos = new HashMap<>();
     }
 
-    public Todo add(Todo newToDo) {
+    public Todo save(Todo newToDo) {
         todos.put(newToDo.id(), newToDo);
         return newToDo;
     }
@@ -27,11 +27,6 @@ public class TodoRepo {
 
     public Todo get(String id) {
         return todos.get(id);
-    }
-
-    public Todo replace(String id, Todo todo) {
-        todos.put(id, todo);
-        return todo;
     }
 
     public Todo delete(String id) {

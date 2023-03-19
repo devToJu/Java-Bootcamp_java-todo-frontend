@@ -27,7 +27,7 @@ class TodoRepoTest {
     @Test
     void add_shouldReturnAddedTodo() {
         // WHEN
-        Todo actual = todoRepo.add(todoToAdd);
+        Todo actual = todoRepo.save(todoToAdd);
 
         // THEN
         Todo expected = getNewTodoInstanceOfTodoToAdd();
@@ -35,7 +35,7 @@ class TodoRepoTest {
     }
 
     @Test
-    void getAll_shouldReturnEmptyList() {
+    void getAll_shouldReturnEmptyList_whenRepoIsEmpty() {
         // WHEN
         List<Todo> actual = todoRepo.getAll();
 
@@ -47,7 +47,7 @@ class TodoRepoTest {
     @Test
     void getAll_shouldReturnListWithOneTodo_whenRepoContainsOneTodo() {
         //GIVEN
-        todoRepo.add(todoToAdd);
+        todoRepo.save(todoToAdd);
 
         // WHEN
         List<Todo> actual = todoRepo.getAll();
@@ -71,7 +71,7 @@ class TodoRepoTest {
     @Test
     void get_shouldReturnTodoWithId_whenRepoContainsGivenId() {
         // GIVEN
-        todoRepo.add(todoToAdd);
+        todoRepo.save(todoToAdd);
 
         // WHEN
         Todo actual = todoRepo.get("3");
@@ -85,7 +85,7 @@ class TodoRepoTest {
     void replace_shouldReturnTheNewTodo_whenRepoIsEmpty() {
         Todo newTodo = getNewTodoInstanceOfTodoToAdd();
 
-        Todo actual = todoRepo.replace(newTodo.id(), newTodo);
+        Todo actual = todoRepo.save(newTodo);
 
         assertEquals(getNewTodoInstanceOfTodoToAdd(), actual);
     }
@@ -100,7 +100,7 @@ class TodoRepoTest {
     @Test
     void delete_shouldReturnDeletedItem_whenRepoContainsId() {
         Todo todoToDelete = getNewTodoInstanceOfTodoToAdd();
-        todoRepo.add(todoToDelete);
+        todoRepo.save(todoToDelete);
 
         Todo actual = todoRepo.delete(todoToDelete.id());
 

@@ -23,7 +23,7 @@ public class TodoController {
     }
 
     @GetMapping("/{id}")
-    public Todo get(@PathVariable String id) {
+    public Todo getById(@PathVariable String id) {
         return todoService.get(id);
     }
 
@@ -33,8 +33,11 @@ public class TodoController {
     }
 
     @PutMapping("/{id}")
-    public Todo replace(@PathVariable String id, @RequestBody Todo todo) {
-        return todoService.replace(id, todo);
+    public Todo update(@PathVariable String id, @RequestBody Todo todo) {
+        if (!id.equals(todo.id())) {
+            throw new IllegalArgumentException("Path-Id " + id + " doesn't match with Body-Id " + todo.id());
+        }
+        return todoService.update(todo);
     }
 
     @DeleteMapping("/{id}")
