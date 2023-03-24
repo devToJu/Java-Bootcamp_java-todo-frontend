@@ -1,0 +1,13 @@
+.board {
+    background: coral;
+}
+
+.flex-container {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-content: stretch;
+    color: #282c34;
+}
+
