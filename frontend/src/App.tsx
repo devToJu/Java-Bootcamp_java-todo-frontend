@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import TaskBoard from "./components/TaskBoard";
 import {NewTaskData, TaskData} from "./models/TaskData";
 import AddTask from "./components/AddTask";
+import {TaskFunctionsContext} from "./contexts/TaskFunctionsContext";
 
 function App() {
     const [allTasks, setAllTasks] = useState<TaskData[]>([]);
@@ -53,10 +54,13 @@ function App() {
     return (
         <div className="App">
             <Header/>
-            <TaskBoard allTasks={allTasks}
-                       updateTask={updateTaskInApi}
-                       deleteTask={deleteTaskInApi}
-            />
+            <TaskFunctionsContext.Provider value={{
+                deleteTask: deleteTaskInApi,
+                updateTask: updateTaskInApi
+            }}>
+                <TaskBoard allTasks={allTasks}/>
+            </TaskFunctionsContext.Provider>
+
             <AddTask addTask={addTaskToApi}/>
         </div>
     );

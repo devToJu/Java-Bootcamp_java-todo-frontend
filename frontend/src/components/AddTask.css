@@ -5,6 +5,8 @@
     justify-content: center;
     background: #282c34;
     color: coral;
+    height: 100vh;
+    align-items: flex-start;
 }
 
 .rightMargin{

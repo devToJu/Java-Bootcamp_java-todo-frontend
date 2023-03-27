@@ -5,8 +5,6 @@ import Task from "./Task";
 type TaskColumnProps = {
     headline: string;
     tasks: TaskData[];
-    updateTask: (task: TaskData) => void;
-    deleteTask: (id: string) => void;
 }
 
 export default function TasksColumn(props: TaskColumnProps) {
@@ -19,11 +17,7 @@ export default function TasksColumn(props: TaskColumnProps) {
             </div>
             {
                 props.tasks.map(task =>
-                    <Task key={task.id}
-                          data={task}
-                          changeState={props.updateTask}
-                          deleteTask={props.deleteTask}
-                    />)
+                    <Task key={task.id} data={task}/>)
             }
         </div>
     )

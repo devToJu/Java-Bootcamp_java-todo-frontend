@@ -5,8 +5,6 @@ import {TaskState} from "../models/TaskState";
 
 type TaskBoardProps = {
     allTasks: TaskData[]
-    updateTask: (task: TaskData) => void
-    deleteTask: (id: string) => void
 }
 
 export default function TaskBoard(props: TaskBoardProps) {
@@ -14,24 +12,15 @@ export default function TaskBoard(props: TaskBoardProps) {
         return props.allTasks.filter(task => task.status === status);
     }
 
-    return(
+    return (
         <div className="board">
             <div className="flex-container">
                 <TasksColumn headline={"Todo"}
-                             tasks={filterTasksByStatus("OPEN")}
-                             updateTask={props.updateTask}
-                             deleteTask={props.deleteTask}
-                />
+                             tasks={filterTasksByStatus("OPEN")}/>
                 <TasksColumn headline={"Doing"}
-                             tasks={filterTasksByStatus("IN_PROGRESS")}
-                             updateTask={props.updateTask}
-                             deleteTask={props.deleteTask}
-                />
+                             tasks={filterTasksByStatus("IN_PROGRESS")}/>
                 <TasksColumn headline={"Done"}
-                             tasks={filterTasksByStatus("DONE")}
-                             updateTask={props.updateTask}
-                             deleteTask={props.deleteTask}
-                />
+                             tasks={filterTasksByStatus("DONE")}/>
             </div>
         </div>
     )
