@@ -1,15 +1,15 @@
 import "./TaskBoard.css"
 import TasksColumn from "./TasksColumn";
 import {TaskData} from "../models/TaskData";
-import {State} from "../models/TaskState";
+import {TaskState} from "../models/TaskState";
 
 type TaskBoardProps = {
     allTasks: TaskData[]
-    changeTaskState: (id: string, status: State) => void
+    updateTask: (task: TaskData) => void
 }
 
 export default function TaskBoard(props: TaskBoardProps) {
-    const filterTasksByStatus = (status: State) => {
+    const filterTasksByStatus = (status: TaskState) => {
         return props.allTasks.filter(task => task.status === status);
     }
 
@@ -18,18 +18,15 @@ export default function TaskBoard(props: TaskBoardProps) {
             <div className="flex-container">
                 <TasksColumn headline={"Todo"}
                              tasks={filterTasksByStatus("OPEN")}
-                             changeTaskState={props.changeTaskState}
-                             nextState={"IN_PROGRESS"}
+                             updateTask={props.updateTask}
                 />
                 <TasksColumn headline={"Doing"}
                              tasks={filterTasksByStatus("IN_PROGRESS")}
-                             changeTaskState={props.changeTaskState}
-                             nextState={"DONE"}
+                             updateTask={props.updateTask}
                 />
                 <TasksColumn headline={"Done"}
                              tasks={filterTasksByStatus("DONE")}
-                             changeTaskState={props.changeTaskState}
-                             nextState={"DONE"}
+                             updateTask={props.updateTask}
                 />
             </div>
         </div>

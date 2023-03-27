@@ -5,7 +5,6 @@ import Header from "./components/Header";
 import TaskBoard from "./components/TaskBoard";
 import {NewTaskData, TaskData} from "./models/TaskData";
 import AddTask from "./components/AddTask";
-import {State} from "./models/TaskState";
 
 function App() {
     const [allTasks, setAllTasks] = useState<TaskData[]>([]);
@@ -28,19 +27,8 @@ function App() {
             .catch(reason => console.error(reason));
     }
 
-    function changeTaskState(id: string, status: State) {
-        const oldTask = allTasks.find(task => task.id === id)
-        if (oldTask === undefined) {
-            return;
-        }
-
-        const updateTask: TaskData = {
-            id: id,
-            description: oldTask.description,
-            status: status
-        }
-
-        axios.put("/api/todo/"+id, updateTask)
+    function updateTaskInApi(task: TaskData) {
+        axios.put("/api/todo/"+task.id, task)
             .then(() => getAllTasksFromApi())
             .catch(reason => console.error(reason));
     }
@@ -48,7 +36,7 @@ function App() {
     return (
         <div className="App">
             <Header/>
-            <TaskBoard allTasks={allTasks} changeTaskState={changeTaskState}/>
+            <TaskBoard allTasks={allTasks} updateTask={updateTaskInApi}/>
             <AddTask addTask={addTaskToApi}/>
         </div>
     );

@@ -1,12 +1,12 @@
-import {State} from "./TaskState";
+import {TaskState} from "./TaskState";
 
 export type TaskData = {
     id: string
     description: string
-    status: State
+    status: TaskState
 }
 
 export type NewTaskData = {
     description: string
-    status: State
+    status: TaskState
 }

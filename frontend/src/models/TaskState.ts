@@ -1,1 +1,1 @@
-export type State = "OPEN" | "IN_PROGRESS" | "DONE";
+export type TaskState = "OPEN" | "IN_PROGRESS" | "DONE";

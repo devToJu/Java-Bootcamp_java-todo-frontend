@@ -1,18 +1,22 @@
 import "./Task.css"
 import {TaskData} from "../models/TaskData";
-import {State} from "../models/TaskState";
+import {TaskState} from "../models/TaskState";
 
 type TaskProps = {
     data: TaskData
-    changeState: (id: string, status: State) => void
-    nextState: State;
+    changeState: (task: TaskData) => void
 }
 
 export default function Task(props: TaskProps) {
     const {data} = props;
 
+    function getNextState() : TaskState {
+        return data.id === "OPEN" ? "IN_PROGRESS" : "DONE";
+    }
+
     const changeState = () => {
-        props.changeState(props.data.id, props.nextState);
+        const taskToUpdate: TaskData = { ...data, status: getNextState() };
+        props.changeState(taskToUpdate);
     }
 
     return (
