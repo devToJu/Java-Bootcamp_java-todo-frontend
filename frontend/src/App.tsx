@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import './App.css';
 import Header from "./components/Header";
 import TaskBoard from "./components/TaskBoard";
-import {TaskData} from "./models/TaskData";
+import {NewTaskData, TaskData} from "./models/TaskData";
 import AddTask from "./components/AddTask";
 import {State} from "./models/TaskState";
 
@@ -22,9 +22,8 @@ function App() {
             .catch(reason => console.error(reason));
     }
 
-    function addTaskToApi(description: string) : void {
-        const task = {description: description, status:"OPEN"};
-        axios.post("/api/todo", task)
+    function addTaskToApi(newTask: NewTaskData) : void {
+        axios.post("/api/todo", newTask)
             .then(() => getAllTasksFromApi())
             .catch(reason => console.error(reason));
     }

@@ -5,3 +5,8 @@ export type TaskData = {
     description: string
     status: State
 }
+
+export type NewTaskData = {
+    description: string
+    status: State
+}
