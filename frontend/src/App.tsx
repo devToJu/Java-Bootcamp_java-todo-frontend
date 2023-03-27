@@ -29,7 +29,7 @@ function App() {
 
     function updateTaskInApi(task: TaskData) {
         axios.put("/api/todo/" + task.id, task)
-            .then(() => getAllTasksFromApi())
+            .then(response => updateTasksAfterUpdatingTask(response.data))
             .catch(reason => console.error(reason));
     }
 
@@ -37,6 +37,12 @@ function App() {
         axios.delete(`/api/todo/${id}`)
             .then(response => updateTasksAfterDeletingTask(response.data))
             .catch(reason => console.error(reason));
+    }
+
+    function updateTasksAfterUpdatingTask(updatedTask: TaskData): void {
+        const updatedTasks = allTasks.map(task =>
+            (task.id === updatedTask.id) ? updatedTask : task);
+        setAllTasks(updatedTasks);
     }
 
     function updateTasksAfterDeletingTask(deletedTask: TaskData): void {
