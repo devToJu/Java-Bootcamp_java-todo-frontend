@@ -5,6 +5,7 @@ import {TaskState} from "../models/TaskState";
 type TaskProps = {
     data: TaskData
     changeState: (task: TaskData) => void
+    deleteTask: (id: string) => void;
 }
 
 export default function Task(props: TaskProps) {
@@ -29,7 +30,7 @@ export default function Task(props: TaskProps) {
 
             {
                 data.status === "DONE"
-                    ? <button>Delete</button>
+                    ? <button onClick={() => props.deleteTask(data.id)}>Delete</button>
                     : <button onClick={changeState}>Advance</button>
             }
         </div>

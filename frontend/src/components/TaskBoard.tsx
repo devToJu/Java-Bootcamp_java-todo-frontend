@@ -6,6 +6,7 @@ import {TaskState} from "../models/TaskState";
 type TaskBoardProps = {
     allTasks: TaskData[]
     updateTask: (task: TaskData) => void
+    deleteTask: (id: string) => void
 }
 
 export default function TaskBoard(props: TaskBoardProps) {
@@ -19,14 +20,17 @@ export default function TaskBoard(props: TaskBoardProps) {
                 <TasksColumn headline={"Todo"}
                              tasks={filterTasksByStatus("OPEN")}
                              updateTask={props.updateTask}
+                             deleteTask={props.deleteTask}
                 />
                 <TasksColumn headline={"Doing"}
                              tasks={filterTasksByStatus("IN_PROGRESS")}
                              updateTask={props.updateTask}
+                             deleteTask={props.deleteTask}
                 />
                 <TasksColumn headline={"Done"}
                              tasks={filterTasksByStatus("DONE")}
                              updateTask={props.updateTask}
+                             deleteTask={props.deleteTask}
                 />
             </div>
         </div>
