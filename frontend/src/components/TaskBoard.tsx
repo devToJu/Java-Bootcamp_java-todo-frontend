@@ -1,15 +1,14 @@
 import "./TaskBoard.css"
 import TasksColumn from "./TasksColumn";
-import {TaskData} from "../models/TaskData";
 import {TaskState} from "../models/TaskState";
+import {useContext} from "react";
+import {TaskFunctionsContext} from "../contexts/TaskFunctionsContext";
 
-type TaskBoardProps = {
-    allTasks: TaskData[]
-}
+export default function TaskBoard() {
+    const {getAllTasks} = useContext(TaskFunctionsContext);
 
-export default function TaskBoard(props: TaskBoardProps) {
     const filterTasksByStatus = (status: TaskState) => {
-        return props.allTasks.filter(task => task.status === status);
+        return getAllTasks().filter(task => task.status === status);
     }
 
     return (

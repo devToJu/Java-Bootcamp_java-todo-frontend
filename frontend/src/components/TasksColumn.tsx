@@ -17,7 +17,7 @@ export default function TasksColumn(props: TaskColumnProps) {
             </div>
             {
                 props.tasks.map(task =>
-                    <Task key={task.id} data={task}/>)
+                    <Task key={task.id} task={task}/>)
             }
         </div>
     )

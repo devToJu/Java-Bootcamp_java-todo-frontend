@@ -1,16 +1,15 @@
 import "./AddTask.css"
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {NewTaskData} from "../models/TaskData";
+import {TaskFunctionsContext} from "../contexts/TaskFunctionsContext";
 
-type AddTaskProps = {
-    addTask: (task: NewTaskData) => void
-}
-export default function AddTask(props: AddTaskProps) {
+export default function AddTask() {
     const [description, setDescription] = useState("");
+    const taskFunctionsContext = useContext(TaskFunctionsContext);
 
     function addTask(): void {
         const newTask: NewTaskData = {description: description, status: "OPEN"}
-        props.addTask(newTask);
+        taskFunctionsContext.addTask(newTask);
         setDescription("");
     }
 

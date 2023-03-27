@@ -5,34 +5,33 @@ import {useContext} from "react";
 import {TaskFunctionsContext} from "../contexts/TaskFunctionsContext";
 
 type TaskProps = {
-    data: TaskData
+    task: TaskData
 }
 
 export default function Task(props: TaskProps) {
-    const {data} = props;
-
+    const {task} = props;
     const taskFunctionsContext = useContext(TaskFunctionsContext);
 
     function getNextState() : TaskState {
-        return  data.status === "OPEN" ? "IN_PROGRESS" : "DONE";
+        return  task.status === "OPEN" ? "IN_PROGRESS" : "DONE";
     }
 
     const changeState = () => {
-        const taskToUpdate: TaskData = { ...data, status: getNextState() };
+        const taskToUpdate: TaskData = { ...task, status: getNextState() };
         taskFunctionsContext.updateTask(taskToUpdate);
     }
 
     return (
         <div className="task">
-            <h3>{data.description}</h3>
+            <h3>{task.description}</h3>
             <div>
-                <p>{data.status}</p>
-                <p>{data.id}</p>
+                <p>{task.status}</p>
+                <p>{task.id}</p>
             </div>
 
             {
-                data.status === "DONE"
-                    ? <button onClick={() => taskFunctionsContext.deleteTask(data.id)}>Delete</button>
+                task.status === "DONE"
+                    ? <button onClick={() => taskFunctionsContext.deleteTask(task.id)}>Delete</button>
                     : <button onClick={changeState}>Advance</button>
             }
         </div>
