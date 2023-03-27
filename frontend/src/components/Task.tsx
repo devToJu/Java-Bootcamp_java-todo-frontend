@@ -11,7 +11,7 @@ export default function Task(props: TaskProps) {
     const {data} = props;
 
     function getNextState() : TaskState {
-        return data.id === "OPEN" ? "IN_PROGRESS" : "DONE";
+        return  data.status === "OPEN" ? "IN_PROGRESS" : "DONE";
     }
 
     const changeState = () => {
