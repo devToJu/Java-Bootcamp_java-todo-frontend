@@ -24,7 +24,7 @@ function App() {
 
     function addTaskToApi(newTask: NewTaskData) : void {
         axios.post("/api/todo", newTask)
-            .then(() => getAllTasksFromApi())
+            .then(result => setAllTasks([...allTasks, result.data]))
             .catch(reason => console.error(reason));
     }
 
