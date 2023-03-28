@@ -5,11 +5,11 @@ import AddTask from "./components/AddTask";
 
 function App() {
     return (
-            <div className="App">
-                <Header/>
-                <TaskBoard/>
-                <AddTask/>
-            </div>
+        <div className="App">
+            <Header/>
+            <TaskBoard/>
+            <AddTask/>
+        </div>
     );
 }
 
