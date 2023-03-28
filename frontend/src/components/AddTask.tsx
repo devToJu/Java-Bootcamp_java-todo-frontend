@@ -1,5 +1,5 @@
 import "./AddTask.css"
-import {useContext, useState} from "react";
+import {FormEvent, useContext, useState} from "react";
 import {NewTaskData} from "../models/TaskData";
 import {TaskFunctionsContext} from "../contexts/TaskFunctionsContext";
 
@@ -7,20 +7,27 @@ export default function AddTask() {
     const [description, setDescription] = useState("");
     const taskFunctionsContext = useContext(TaskFunctionsContext);
 
-    function addTask(): void {
+    function addTask(event: FormEvent<HTMLFormElement>): void {
+        event.preventDefault();
         const newTask: NewTaskData = {description: description, status: "OPEN"}
         taskFunctionsContext.addTask(newTask);
         setDescription("");
     }
 
     return (
-        <div className="addTask">
+        <form className="addTask"
+              onSubmit={addTask}
+              onReset={() => setDescription("")}
+        >
             <label className="rightMargin">Add new Task:</label>
+
             <input className="rightMargin"
                    placeholder="description"
                    value={description}
                    onChange={(event) => setDescription(event.target.value)}/>
-            <button onClick={addTask}>+</button>
-        </div>
+
+            <button className="rightMargin" type="submit">Add</button>
+            <button type="reset">Clear</button>
+        </form>
     )
 }
